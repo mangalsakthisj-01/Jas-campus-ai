@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0c16" />
+  <title>JAS — Campus AI</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <section id="authView" class="auth-layout">
+    <div class="auth-brand">
+      <div class="brand-lockup"><div class="brand-mark">J</div><div><div class="brand-name">JAS<span>.</span></div><div class="brand-subtitle">CAMPUS INTELLIGENCE</div></div></div>
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse-dot"></span> YOUR COLLEGE AI WORKSPACE</div>
+        <h1>Think clearly.<br/><span>Build boldly.</span></h1>
+        <p>One private workspace for learning, coding, documents, and ideas — designed for your campus community.</p>
+      </div>
+      <div class="feature-strip">
+        <div class="feature-item"><span class="feature-icon">✳</span><div><strong>Multimodal</strong><small>Ask with files & images</small></div></div>
+        <div class="feature-item"><span class="feature-icon">⌘</span><div><strong>Build & learn</strong><small>Code, explain, create</small></div></div>
+        <div class="feature-item"><span class="feature-icon">◈</span><div><strong>Campus controlled</strong><small>Access by approval</small></div></div>
+      </div>
+      <div class="auth-footer">A college-focused AI platform · JAS v0.1</div>
+    </div>
+    <div class="auth-side">
+      <div class="auth-card">
+        <div class="mobile-brand brand-lockup"><div class="brand-mark">J</div><div><div class="brand-name">JAS<span>.</span></div><div class="brand-subtitle">CAMPUS INTELLIGENCE</div></div></div>
+        <div class="auth-heading"><p class="eyebrow">WELCOME TO JAS</p><h2 id="authTitle">Sign in to your workspace</h2><p id="authSubtitle">Your campus AI, all in one place.</p></div>
+        <div class="auth-tabs"><button id="showLogin" class="auth-tab active" type="button">Sign in</button><button id="showRegister" class="auth-tab" type="button">Create account</button></div>
+        <form id="authForm" class="form-stack">
+          <label id="nameField" class="field hidden">Full name<input id="fullName" name="full_name" type="text" autocomplete="name" minlength="2" maxlength="160" placeholder="Your name" /></label>
+          <label class="field">College email<input id="email" name="email" type="email" required autocomplete="email" placeholder="you@college.edu" /></label>
+          <label class="field">Password<input id="password" name="password" type="password" required minlength="10" autocomplete="current-password" placeholder="At least 10 characters" /></label>
+          <div id="authError" class="inline-error hidden"></div>
+          <button id="authSubmit" class="btn btn-primary btn-wide" type="submit"><span>Sign in</span><span class="arrow">↗</span></button>
+        </form>
+        <p class="auth-legal">Campus-only access. New accounts remain pending until approved by a JAS admin or manager. Use only files you are permitted to share.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="appView" class="app-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-head"><div class="brand-lockup"><div class="brand-mark small">J</div><div><div class="brand-name">JAS<span>.</span></div><div class="brand-subtitle">CAMPUS AI</div></div></div><button id="collapseSidebar" class="icon-button mobile-only" aria-label="Close menu">×</button></div>
+      <button id="newChat" class="btn new-chat-btn" type="button"><span class="plus">＋</span> New conversation <kbd>⌘ K</kbd></button>
+      <div class="nav-label">WORKSPACE</div>
+      <button class="side-nav active" data-page="workspace" type="button"><span class="side-icon">✳</span> AI Workspace</button>
+      <button id="controlCenterNav" class="side-nav hidden" data-page="control" type="button"><span class="side-icon">◈</span> Control center <span class="nav-lock">●</span></button>
+      <div class="history-header"><span class="nav-label">RECENT CHATS</span><button id="refreshChats" class="icon-button" title="Refresh chats">↻</button></div>
+      <div id="conversationList" class="conversation-list"><div class="empty-history">Your conversations will appear here.</div></div>
+      <div class="sidebar-bottom">
+        <div class="provider-status"><span class="status-led"></span><span><strong>JAS Workspace</strong><small>College access only</small></span><span class="shield">⌑</span></div>
+        <button id="profileButton" class="profile-row" type="button"><div id="avatar" class="avatar">J</div><div class="profile-text"><strong id="profileName">Campus user</strong><small id="profileRole">User account</small></div><span class="chevron">⋯</span></button>
+        <button id="logoutButton" class="side-nav signout" type="button"><span class="side-icon">⇥</span> Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar"><div class="topbar-left"><button id="openSidebar" class="icon-button mobile-only" aria-label="Open menu">☰</button><div><div id="topbarTitle" class="topbar-title">AI Workspace <span class="model-chip">JAS</span></div><div id="topbarSubtitle" class="topbar-subtitle">A focused space for questions, ideas, and code.</div></div></div><div class="topbar-right"><span class="privacy-pill"><span>●</span> Campus workspace</span><button id="imageToolButton" class="btn btn-outline btn-small" type="button">✦ Image</button><button id="topNewChat" class="btn btn-outline btn-small" type="button">＋ New chat</button></div></header>
+
+      <section id="approvalGate" class="approval-gate hidden">
+        <div class="gate-icon">◈</div><div class="eyebrow">ACCESS REVIEW</div><h2 id="gateTitle">Your access is pending</h2><p id="gateText">Your account has been created. A college JAS admin or manager must approve access before you can use the workspace.</p><div class="gate-meta"><span class="pulse-dot"></span><span id="gateStatus">STATUS · PENDING</span></div><button id="checkStatus" class="btn btn-outline" type="button">Refresh approval status</button>
+      </section>
+
+      <section id="workspacePage" class="workspace-page">
+        <div id="welcomePanel" class="welcome-panel">
+          <div class="welcome-eyebrow"><span class="sparkle">✳</span> YOUR CAMPUS AI COMPANION</div><h1>What are we <span>working on?</span></h1><p>Bring a question, a file, or a half-formed idea. Let’s turn it into something useful.</p>
+          <div class="prompt-grid">
+            <button class="prompt-card" data-prompt="Explain this concept from first principles, then give me an example and a short quiz." type="button"><span class="prompt-symbol lavender">◌</span><strong>Learn something</strong><small>Understand a hard topic, step by step</small><span class="prompt-arrow">↗</span></button>
+            <button class="prompt-card" data-mode="code" data-prompt="Help me solve this programming problem. Explain your approach, provide complete code, and include edge cases." type="button"><span class="prompt-symbol mint">⌘</span><strong>Write better code</strong><small>Debug, design, and build projects</small><span class="prompt-arrow">↗</span></button>
+            <button class="prompt-card" data-mode="assignment" data-prompt="Help me turn my notes or question paper into a well-structured assignment. Ask for any missing requirements and do not invent citations." type="button"><span class="prompt-symbol peach">▤</span><strong>Create a document</strong><small>Shape notes into a clear assignment</small><span class="prompt-arrow">↗</span></button>
+            <button class="prompt-card" data-mode="decision" data-prompt="Help me compare my options. List benefits, risks, trade-offs, assumptions, and your recommended next step." type="button"><span class="prompt-symbol blue">⟡</span><strong>Think it through</strong><small>Compare options and make a plan</small><span class="prompt-arrow">↗</span></button>
+          </div>
+        </div>
+        <div id="chatMessages" class="chat-messages hidden" aria-live="polite"></div>
+        <div id="typingIndicator" class="typing-row hidden"><span class="assistant-mini">J</span><div class="typing-bubble"><span></span><span></span><span></span><small>JAS is thinking</small></div></div>
+        <div class="composer-dock">
+          <div id="attachmentTray" class="attachment-tray hidden"></div>
+          <form id="chatForm" class="composer">
+            <textarea id="chatInput" rows="1" maxlength="20000" placeholder="Message JAS... Ask a question, share an idea, or paste code" aria-label="Message JAS"></textarea>
+            <div class="composer-toolbar"><div class="composer-tools"><button id="attachButton" class="tool-button" type="button" title="Attach a file">＋ <span>Attach</span></button><input id="fileInput" class="hidden" type="file" multiple accept=".pdf,.docx,.txt,.md,.csv,.json,.xml,.html,.css,.js,.ts,.py,.java,.c,.cpp,.h,.sql,.sh,.yaml,.yml,.toml,.log,.png,.jpg,.jpeg,.webp,.gif,.bmp,.mp3,.wav,.m4a,.mpga,.ogg,.flac,.webm,.mp4,.mov,.mkv,.avi" /><span class="tool-separator"></span><label class="mode-label" for="chatMode">Mode</label><select id="chatMode" aria-label="Response mode"><option value="general">General</option><option value="study">Study coach</option><option value="code">Coding</option><option value="assignment">Assignment</option><option value="decision">Decision support</option></select></div><button id="sendButton" class="send-button" type="submit" aria-label="Send message"><span>↑</span></button></div>
+          </form>
+          <div class="composer-footnote">JAS can make mistakes. Verify important details. Uploads may be reviewed by authorized admins under campus policy.</div>
+        </div>
+      </section>
+
+      <section id="controlPage" class="control-page hidden">
+        <div class="control-intro"><div class="eyebrow">CAMPUS GOVERNANCE</div><h1>Control <span>center</span></h1><p>Manage access, review activity, and keep JAS accountable.</p></div>
+        <div id="overviewCards" class="overview-grid"></div>
+        <div class="control-grid">
+          <section class="panel-card users-panel"><div class="panel-heading"><div><p class="eyebrow">ACCESS MANAGEMENT</p><h2>Accounts</h2></div><button id="reloadUsers" class="icon-button" title="Refresh accounts">↻</button></div><div id="usersList" class="users-list"><div class="loading-inline">Loading accounts…</div></div></section>
+          <section id="managerCreatePanel" class="panel-card manager-create hidden"><div class="panel-heading"><div><p class="eyebrow">ADMIN ONLY</p><h2>Register a manager</h2></div><span class="panel-icon">＋</span></div><form id="managerForm" class="form-stack"><label class="field">Full name<input id="managerName" required minlength="2" maxlength="160" /></label><label class="field">College email<input id="managerEmail" type="email" required /></label><label class="field">Temporary password<input id="managerPassword" type="password" required minlength="12" maxlength="128" placeholder="12+ characters" /></label><button class="btn btn-primary" type="submit">Create manager <span class="arrow">↗</span></button></form><p class="panel-footnote">Share credentials securely and ask the manager to change their password through your institution’s identity process. Password reset is not included in this starter.</p></section>
+        </div>
+        <section id="uploadReviewPanel" class="panel-card upload-review"><div class="panel-heading"><div><p class="eyebrow">ADMIN REVIEW</p><h2>Campus upload inbox</h2><p class="panel-description">Uploaded materials can contain personal information. Review only under approved campus policy.</p></div><button id="reloadUploads" class="icon-button" title="Refresh uploads">↻</button></div><div id="uploadsList" class="uploads-list"><div class="loading-inline">Loading uploads…</div></div></section>
+        <section id="auditPanel" class="panel-card audit-panel"><div class="panel-heading"><div><p class="eyebrow">ACCOUNTABILITY</p><h2>Recent audit activity</h2></div><button id="reloadAudit" class="icon-button" title="Refresh activity">↻</button></div><div id="auditList" class="audit-list"><div class="loading-inline">Loading audit activity…</div></div></section>
+      </section>
+
+      <section id="imageTool" class="image-tool hidden"><div class="panel-heading"><div><p class="eyebrow">CREATIVE STUDIO</p><h2>Image generator</h2></div><button id="closeImageTool" class="icon-button" type="button">×</button></div><p class="panel-description">Create a concept image from a prompt. Requires an image-generation API key configured by the JAS operator.</p><textarea id="imagePrompt" rows="3" placeholder="Describe the image you want to create…"></textarea><button id="generateImageButton" class="btn btn-primary" type="button">Generate image <span class="arrow">↗</span></button><div id="generatedImageOutput" class="generated-image-output"></div></section>
+    </main>
+  </section>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

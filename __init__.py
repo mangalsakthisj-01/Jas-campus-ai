@@ -1,0 +1,1 @@
+"""JAS campus AI application."""
